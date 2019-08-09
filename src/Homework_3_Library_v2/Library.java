@@ -24,7 +24,7 @@ public class Library {
 
     private String getBookAsStr(Book book) {
         if (book instanceof HandWritten) {
-            return book.toString()+" UNIQUE COPY";
+            return book.toString() + " UNIQUE COPY";
         } else if (book instanceof Printed) {
             return book.toString() + " MANY COPY";
         } else {

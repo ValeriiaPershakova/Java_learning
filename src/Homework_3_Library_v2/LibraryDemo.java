@@ -11,6 +11,8 @@ public class LibraryDemo {
         library.printAuthors();
         library.printBooks();
         library.printBookTitleAndAuthor();
+
+
     }
 
     private static void initData(Library library) {
@@ -55,7 +57,7 @@ public class LibraryDemo {
 
         book1.setAuthors(new Author[]{author1});
         book2.setAuthors(new Author[]{author1});
-        book3.setAuthors(new Author[]{author2,author3});
+        book3.setAuthors(new Author[]{author2, author3});
 
 
         library.addBook(book1);
@@ -65,6 +67,12 @@ public class LibraryDemo {
         library.addAuthor(author1);
         library.addAuthor(author2);
         library.addAuthor(author3);
+
+        //Проверка работоспособности increaseAuthorsStorage()
+        Author author4 = valueOf(inputAuthor1);
+        for (int i = Storage.authorIndex; i < 12; i++) {
+            library.addAuthor(author4);
+        }
 
 
     }
@@ -92,6 +100,7 @@ public class LibraryDemo {
 
         return book;
     }
+
     private static Printed valueOfP(InputBook inputBook) {
         Printed book = new Printed();
         book.setName(inputBook.getName());

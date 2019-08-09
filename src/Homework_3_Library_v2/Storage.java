@@ -19,10 +19,8 @@ public class Storage {
     public static void increaseAuthorsStorage() {
 
         Author[] authors = new Author[authorIndex + CAPACITY];
-        System.arraycopy(Storage.authors,0,authors,0,authorIndex);
-        /*for (int i = 0; i < Storage.authors.length; i++) {
-            authors[i] = Storage.authors[i];
-        }*/
+        System.arraycopy(Storage.authors, 0, authors, 0, authorIndex);
+
 
         Storage.authors = authors;
     }
@@ -30,7 +28,7 @@ public class Storage {
     public static void addAuthor(Author author) {
         author.setId(System.currentTimeMillis());
 
-        if (authorIndex % (CAPACITY) == 0 && authorIndex != 0) {
+        if ((authorIndex % CAPACITY) == 0 && authorIndex != 0) {
             increaseAuthorsStorage();
             authors[authorIndex] = author;
         } else {
@@ -39,6 +37,7 @@ public class Storage {
 
         Storage.increaseAuthorIndex();
     }
+
     public static void addBook(Book book) {
         book.setId(System.currentTimeMillis());
 
@@ -46,13 +45,14 @@ public class Storage {
             increaseBookStorage();
             books[bookIndex] = book;
         } else {
-            books[bookIndex]=book;
+            books[bookIndex] = book;
         }
         increaseBookIndex();
     }
+
     public static void increaseBookStorage() {
-        Book[] books = new Book[bookIndex+CAPACITY];
-        System.arraycopy(Storage.books,0,books,0,bookIndex);
-        Storage.books=books;
+        Book[] books = new Book[bookIndex + CAPACITY];
+        System.arraycopy(Storage.books, 0, books, 0, bookIndex);
+        Storage.books = books;
     }
 }
