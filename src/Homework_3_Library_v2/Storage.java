@@ -1,16 +1,23 @@
 package Homework_3_Library_v2;
 
-public class Storage {
+import Homework_3_Library_v2.Author.Author;
+import Homework_3_Library_v2.Book.Book;
+
+public final class Storage {
     public static final int CAPACITY = 10;
     public static Book[] books = new Book[CAPACITY];
     public static int bookIndex = 0;
 
-    public static void increaseBookIndex() {
-        bookIndex++;
-    }
 
     public static Author[] authors = new Author[CAPACITY];
     public static int authorIndex = 0;
+
+    private Storage() {
+    }
+
+    public static void increaseBookIndex() {
+        bookIndex++;
+    }
 
     public static void increaseAuthorIndex() {
         authorIndex++;
@@ -54,5 +61,13 @@ public class Storage {
         Book[] books = new Book[bookIndex + CAPACITY];
         System.arraycopy(Storage.books, 0, books, 0, bookIndex);
         Storage.books = books;
+    }
+    public static Integer indexOf(Object object, Object[] array) {
+        for (int i = 0;i<array.length;i++ ) {
+            if (array[i]==object) {
+                return i;
+            }
+        }
+        return null;
     }
 }

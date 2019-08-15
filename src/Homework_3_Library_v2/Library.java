@@ -1,5 +1,10 @@
 package Homework_3_Library_v2;
 
+import Homework_3_Library_v2.Author.Author;
+import Homework_3_Library_v2.Book.Book;
+import Homework_3_Library_v2.Book.HandWritten;
+import Homework_3_Library_v2.Book.Printed;
+
 import static Homework_3_Library_v2.Storage.*;
 
 public class Library {
@@ -23,13 +28,13 @@ public class Library {
     }
 
     private String getBookAsStr(Book book) {
-        if (book instanceof HandWritten) {
-            return book.toString() + " UNIQUE COPY";
+       /* if (book instanceof HandWritten) {
+            return book.toString(); //+"Paint: "+((HandWritten) book).getPaint()+ ", UNIQUE COPY";
         } else if (book instanceof Printed) {
-            return book.toString() + " MANY COPY";
-        } else {
+            return book.toString(); //+" Font Family: "+((Printed) book).getFontFamily()+ ", MANY COPY";
+        } else {*/
             return book.toString();
-        }
+        //}
     }
 
     public void printAuthors() {

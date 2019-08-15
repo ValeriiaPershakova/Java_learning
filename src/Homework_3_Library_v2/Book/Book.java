@@ -1,12 +1,15 @@
-package Homework_3_Library_v2;
+package Homework_3_Library_v2.Book;
+
+import Homework_3_Library_v2.Author.Author;
 
 public class Book {
-    private Long id;
-    private String name;
-    private int publishYear;
-    private int totalPages;
-    private Author[] authors;
-    private Genre genre;
+    protected Long id;
+    protected String name;
+    protected int publishYear;
+    protected int totalPages;
+    protected Author[] authors;
+    protected BookType bookType;
+
 
     public Long getId() {
         return id;
@@ -48,12 +51,12 @@ public class Book {
         this.authors = authors;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public BookType getBookType() {
+        return bookType;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
     }
 
     @Override
@@ -63,7 +66,7 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", publishYear=" + publishYear +
                 ", totalPages=" + totalPages +
-                ", genre=" + genre +
+                ", genre=" + bookType +
                 '}';
     }
     public String toString2() {

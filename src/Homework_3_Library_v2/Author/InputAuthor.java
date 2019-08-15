@@ -1,4 +1,4 @@
-package Homework_3_Library_v2;
+package Homework_3_Library_v2.Author;
 
 public class InputAuthor {
     private String lastName;

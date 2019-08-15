@@ -1,10 +1,13 @@
-package Homework_3_Library_v2;
+package Homework_3_Library_v2.Book;
 
 public class InputBook {
     private String name;
     private int publishYear;
     private int totalPages;
-    private Genre genre;
+    private BookType bookType;
+
+    private String paint;
+    private String fontFamily;
 
     public String getName() {
         return name;
@@ -30,11 +33,27 @@ public class InputBook {
         this.totalPages = totalPages;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public BookType getBookType() {
+        return bookType;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
+    }
+
+    public String getPaint() {
+        return paint;
+    }
+
+    public void setPaint(String paint) {
+        this.paint = paint;
+    }
+
+    public String getFontFamily() {
+        return fontFamily;
+    }
+
+    public void setFontFamily(String fontFamily) {
+        this.fontFamily = fontFamily;
     }
 }

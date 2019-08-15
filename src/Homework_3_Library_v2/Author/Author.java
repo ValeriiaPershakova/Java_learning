@@ -1,4 +1,6 @@
-package Homework_3_Library_v2;
+package Homework_3_Library_v2.Author;
+
+import Homework_3_Library_v2.Book.Book;
 
 public class Author {
 
