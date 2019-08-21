@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class BookRepoListImpl implements BookRepo {
+public class BookRepoCollectionImpl implements BookRepo {
     @Override
     public int count() {
         return StorageList.books.size();
@@ -30,7 +30,7 @@ public class BookRepoListImpl implements BookRepo {
 
     @Override
     public void delete(Book book) {
-    StorageList.removeBook(book);
+        StorageList.removeBook(book);
     }
 
     @Override
@@ -63,10 +63,8 @@ public class BookRepoListImpl implements BookRepo {
 
     @Override
     public Book find(String name) {
-        Book searchingBook = new Book();
-        Iterator<Book> iter = StorageList.books.iterator();
-        while (iter.hasNext()) {
-            Book book = iter.next();
+        Book searchingBook = null;
+        for (Book book : StorageList.books) {
             if (book.getName().equals(name)) {
                 searchingBook = book;
                 break;

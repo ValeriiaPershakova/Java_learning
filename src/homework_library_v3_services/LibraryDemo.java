@@ -4,7 +4,7 @@ import homework_library_v3_services.author.domain.Author;
 import homework_library_v3_services.author.repo.AuthorRepo;
 import homework_library_v3_services.author.repo.AuthorRepoArrayImpl;
 import homework_library_v3_services.author.InputAuthor;
-import homework_library_v3_services.author.repo.AuthorRepoListImpl;
+import homework_library_v3_services.author.repo.AuthorRepoCollectionImpl;
 import homework_library_v3_services.author.service.AuthorService;
 import homework_library_v3_services.author.service.AuthorServiceImpl;
 import homework_library_v3_services.book.*;
@@ -14,7 +14,7 @@ import homework_library_v3_services.book.domain.HandWritten;
 import homework_library_v3_services.book.domain.Printed;
 import homework_library_v3_services.book.repo.BookRepoArrayImpl;
 import homework_library_v3_services.book.repo.BookRepo;
-import homework_library_v3_services.book.repo.BookRepoListImpl;
+import homework_library_v3_services.book.repo.BookRepoCollectionImpl;
 import homework_library_v3_services.book.service.BookService;
 import homework_library_v3_services.book.service.BookServiceImpl;
 
@@ -29,8 +29,8 @@ public class LibraryDemo {
             bookRepo = new BookRepoArrayImpl();
             authorRepo = new AuthorRepoArrayImpl();
         } else if (storageType.equals("collection")) {
-            bookRepo = new BookRepoListImpl();
-            authorRepo = new AuthorRepoListImpl();
+            bookRepo = new BookRepoCollectionImpl();
+            authorRepo = new AuthorRepoCollectionImpl();
         }
 
         AuthorService authorService = new AuthorServiceImpl(authorRepo, bookRepo);
