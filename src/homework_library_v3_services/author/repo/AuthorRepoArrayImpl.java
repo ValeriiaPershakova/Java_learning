@@ -2,26 +2,24 @@ package homework_library_v3_services.author.repo;
 
 import homework_library_v3_services.author.domain.Author;
 import homework_library_v3_services.book.domain.Book;
-import homework_library_v3_services.Storage;
+import homework_library_v3_services.storage.ArrayStorage;
+import homework_library_v3_services.storage.CollectionStorage;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class AuthorRepoArrayImpl implements AuthorRepo {
 
 
     @Override
     public int count() {
-        int result = 0;
-
-        for (Author author : Storage.authors) {
-            if (author != null) {
-                result++;
-            }
-        }
-        return result;
+        return ArrayStorage.getTotalAuthors();
     }
 
     @Override
     public void print() {
-        for (Author author : Storage.authors) {
+        for (Author author : ArrayStorage.getAllAuthors()) {
             if (author != null) {
                 System.out.println(author.toString());
             }
@@ -30,72 +28,65 @@ public class AuthorRepoArrayImpl implements AuthorRepo {
 
     @Override
     public void delete(Author author) {
-        Storage.removeAuthor(author);
+        ArrayStorage.removeAuthor(author);
     }
 
     @Override
     public Long add(Author author) {
-        Storage.addAuthor(author);
+        ArrayStorage.addAuthor(author);
         return author.getId();
     }
 
     //sort by Insertion
     @Override
     public void sort() {
-        Author[] authors = Storage.authors;
-        for (int left = 0; left < Storage.authorIndex; left++) {
-            // take out the value of the element
-            Author value = authors[left];
-            // Look left (elements before taken)
-            int i = left - 1;
-            for (; i >= 0; i--) {
-                // If the value is less, move the greater elements right
-                if (value.getLastName().compareTo(authors[i].getLastName()) < 0) {
-                    authors[i + 1] = authors[i];
-                } else {
-                    // If the value is bigger - stop
-                    break;
-                }
-            }
-            // Put the value to the new free space
-            authors[i + 1] = value;
-        }
-        Storage.authors = authors;
+        ArrayStorage.sortAuthors();
+    }
 
+    @Override
+    public void sort(Comparator comparator) {
+        ArrayStorage.sortAuthors(comparator);
     }
 
     @Override
     public Author[] find(String lastName) {
-        Author[] author = new Author[5];
-        int index = 0;
-        for (Author a:Storage.authors) {
-            if (a!=null) {
+        List<Author> found = new ArrayList<>();
+        for (Author a : ArrayStorage.getAllAuthors()) {
+            if (a != null) {
                 if (a.getLastName().equals(lastName)) {
-                    author[index] = a;
-                    index++;
+                    found.add(a);
                 }
             }
         }
-        return author;
+        return found.toArray(new Author[0]);
     }
 
     @Override
     public Author[] findAuthorsByBook(Long id) {
-        Author[] authors = new Author[100];
-        int index = 0;
+        List<Author> found = new ArrayList<>();
 
-        for (Author author : Storage.authors) {
-            if (author!=null) {
+        for (Author author : ArrayStorage.getAllAuthors()) {
+            if (author != null) {
                 for (Book b : author.getBooks()) {
                     if (b.getId().equals(id)) {
-                        authors[index] = author;
-                        index++;
+                        found.add(author);
                         break;
                     }
                 }
             }
         }
 
-        return authors;
+        return found.toArray(new Author[0]);
+    }
+
+    @Override
+    public Author getById(Long authorId) {
+        Author author = null;
+        for (Author a : ArrayStorage.getAllAuthors()) {
+            if (a.getId().equals(authorId)) {
+                author = a;
+            }
+        }
+        return author;
     }
 }

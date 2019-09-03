@@ -5,6 +5,8 @@ import homework_library_v3_services.author.repo.AuthorRepo;
 import homework_library_v3_services.book.domain.Book;
 import homework_library_v3_services.book.repo.BookRepo;
 
+import java.util.Comparator;
+
 public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepo authorRepo;
     private final BookRepo bookRepo;
@@ -28,7 +30,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void delete(Author author) {
-        Book[] booksWithAuthor = bookRepo.findBooksByAuthor(author.getId());
+        Book[] booksWithAuthor = bookRepo.findBooksByAuthorAsArray(author.getId());
 
         if (booksWithAuthor != null) {
             for (Book book : booksWithAuthor) {
@@ -51,12 +53,21 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void sort() {
+    public void defaultSort() {
         authorRepo.sort();
     }
 
     @Override
+    public void sort(Comparator comparator) {
+        authorRepo.sort(comparator);
+    }
+    @Override
     public Author[] find(String lastName) {
         return authorRepo.find(lastName);
+    }
+
+    @Override
+    public Author getById(Long authorId) {
+        return authorRepo.getById(authorId);
     }
 }

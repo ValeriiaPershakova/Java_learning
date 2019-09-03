@@ -45,8 +45,8 @@ public class LibraryDemo {
         System.out.println("Authors: " + authorService.count() + "; Books: " + bookService.count());
 
         System.out.println("SORTING");
-        authorService.sort();
-        bookService.sort();
+        authorService.defaultSort();
+        bookService.defaultSort();
         bookRepo.print();
         authorRepo.print();
 

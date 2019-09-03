@@ -5,6 +5,8 @@ import homework_library_v3_services.author.repo.AuthorRepo;
 import homework_library_v3_services.book.domain.Book;
 import homework_library_v3_services.book.repo.BookRepo;
 
+import java.util.Comparator;
+
 public class BookServiceImpl implements BookService {
     private final AuthorRepo authorRepo;
     private final BookRepo bookRepo;
@@ -54,16 +56,26 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book[] findBooksByAuthor(long id) {
-        return bookRepo.findBooksByAuthor(id);
+        return bookRepo.findBooksByAuthorAsArray(id);
     }
 
     @Override
-    public void sort() {
+    public void defaultSort() {
         bookRepo.sort();
+    }
+
+    @Override
+    public void sort(Comparator comparator) {
+        bookRepo.sort(comparator);
     }
 
     @Override
     public Book find(String name) {
         return bookRepo.find(name);
+    }
+
+    @Override
+    public Book getById(Long bookId) {
+        return bookRepo.getById(bookId);
     }
 }

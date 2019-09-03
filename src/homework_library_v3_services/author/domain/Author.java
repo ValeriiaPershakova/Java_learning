@@ -2,6 +2,11 @@ package homework_library_v3_services.author.domain;
 
 import homework_library_v3_services.book.domain.Book;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 public class Author {
 
 
@@ -9,7 +14,7 @@ public class Author {
     private String lastName;
     private String name;
     private int yearOfBorn;
-    private Book[] books;
+    private List<Book> books;
 
     public Author(Long id) {
         this.id = id;
@@ -48,12 +53,12 @@ public class Author {
         this.yearOfBorn = yearOfBorn;
     }
 
-    public Book[] getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
     public void setBooks(Book[] books) {
-        this.books = books;
+        this.books = new ArrayList<>(Arrays.asList(books));
     }
 
     @Override
@@ -65,26 +70,20 @@ public class Author {
                 ", yearOfBorn=" + yearOfBorn +
                 '}';
     }
+
     public void deleteBook(Book book) {
-        for (int i = 0; i<this.books.length; i++) {
-            if (this.books[i].getId().equals(book.getId())) {
-                this.books[i] = null;
-                break;
+        Iterator<Book> iter = books.iterator();
+        while (iter.hasNext()) {
+            Book b = iter.next();
+            if (b.getId().equals(book.getId())) {
+                iter.remove();
             }
         }
-        Book[] newBooks = new Book[this.books.length - 1];
-        int index = 0;
-        for (Book b : this.books) {
-            if (b!=null) {
-                newBooks[index]=b;
-                index++;
-            }
-        }
-        this.books = newBooks;
+
     }
 
     public boolean withoutBooks() {
-        return this.books.length==0;
+        return this.books.size() == 0;
     }
 }
 

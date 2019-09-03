@@ -2,25 +2,22 @@ package homework_library_v3_services.book.repo;
 
 import homework_library_v3_services.author.domain.Author;
 import homework_library_v3_services.book.domain.Book;
-import homework_library_v3_services.Storage;
+import homework_library_v3_services.storage.ArrayStorage;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class BookRepoArrayImpl implements BookRepo {
 
     @Override
     public int count() {
-        int result = 0;
-
-        for (Book book : Storage.books) {
-            if (book != null) {
-                result++;
-            }
-        }
-        return result;
+        return ArrayStorage.getTotalBooks();
     }
 
     @Override
     public void print() {
-        for (Book book : Storage.books) {
+        for (Book book : ArrayStorage.getAllBooks()) {
             if (book != null) {
                 System.out.println(book.toString());
             }
@@ -29,77 +26,73 @@ public class BookRepoArrayImpl implements BookRepo {
 
     @Override
     public void printBookAndItsAuthor() {
-        for (Book b : Storage.books) {
+        for (Book b : ArrayStorage.getAllBooks()) {
             if (b != null) {
                 System.out.println(b.toString2());
             }
         }
-     }
+    }
 
     @Override
     public void delete(Book book) {
-        Storage.removeBook(book);
+        ArrayStorage.removeBook(book);
     }
 
     @Override
     public Long add(Book book) {
-        Storage.addBook(book);
+        ArrayStorage.addBook(book);
         return book.getId();
     }
 
     @Override
-    public Book[] findBooksByAuthor(long id) {
-        Book[] books = new Book[100];
-        int index = 0;
+    public Book[] findBooksByAuthorAsArray(long authorId) {
+        return findBooksByAuthorAsList(authorId).toArray(new Book[0]);
+    }
 
-        for (Book book : Storage.books) {
-            if (book!=null) {
-                for (Author a : book.getAuthors()) {
-                    if (a.getId().equals(id)) {
-                        books[index] = book;
-                        index++;
-                        break;
-                    }
+    @Override
+    public List<Book> findBooksByAuthorAsList(long authorId) {
+        List<Book> found = new ArrayList<>();
+        for (Book book : ArrayStorage.getAllBooks()) {
+            for (Author a : book.getAuthors()) {
+                if (Long.valueOf(authorId).equals(a.getId())) {
+                    found.add(book);
+                    break;
                 }
             }
         }
-
-        //if no books then null
-        return books;
+        return found;
     }
 
     @Override
     public void sort() {
-        Book[] books = Storage.books;
-        for (int left = 0; left < Storage.bookIndex; left++) {
-            // Вытаскиваем значение элемента
-            Book value = books[left];
-            // Look left (elements before taken)
-            int i = left - 1;
-            for (; i >= 0; i--) {
-                // If the value is less, move the greater elements right
-                if (value.getName().compareTo(books[i].getName()) < 0) {
-                    books[i + 1] = books[i];
-                } else {
-                    //If the value is bigger - stop
-                    break;
-                }
-            }
-            // Put the value to the new free space
-            books[i + 1] = value;
-        }
-        Storage.books = books;
+        ArrayStorage.sortBooks();
+    }
+
+    @Override
+    public void sort(Comparator comparator) {
+        ArrayStorage.sortBooks(comparator);
     }
 
     @Override
     public Book find(String name) {
         Book book = null;
-        for (Book a : Storage.books) {
-            if (a!=null) {
+        for (Book a : ArrayStorage.getAllBooks()) {
+            if (a != null) {
                 if (a.getName().equals(name)) {
                     book = a;
                     break;
                 }
+            }
+        }
+        return book;
+    }
+
+    @Override
+    public Book getById(Long bookId) {
+        Book book = null;
+        for (Book b : ArrayStorage.getAllBooks()) {
+            if (b.getId().equals(bookId)) {
+                book = b;
             }
         }
         return book;

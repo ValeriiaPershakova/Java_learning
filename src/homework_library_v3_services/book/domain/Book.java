@@ -2,12 +2,17 @@ package homework_library_v3_services.book.domain;
 
 import homework_library_v3_services.author.domain.Author;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 public class Book {
     protected Long id;
     protected String name;
     protected int publishYear;
     protected int totalPages;
-    protected Author[] authors;
+    protected List<Author> authors;
     protected BookType bookType;
 
 
@@ -43,12 +48,12 @@ public class Book {
         this.totalPages = totalPages;
     }
 
-    public Author[] getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
     public void setAuthors(Author[] authors) {
-        this.authors = authors;
+        this.authors = new ArrayList<>(Arrays.asList(authors));
     }
 
     public BookType getBookType() {
@@ -79,8 +84,7 @@ public class Book {
 
     private String getAuthorsAsStr() {
         StringBuilder string= new StringBuilder();
-        for (int i = 0; i < authors.length; i++) {
-            Author author = authors[i];
+        for (Author author: authors) {
             if (author != null) {
                 string.append(author.getLastName() + ", ");
             }
@@ -89,25 +93,17 @@ public class Book {
     }
 
     public void deleteAuthor(Author author) {
-        for (int i = 0; i<this.authors.length;i++) {
-            if (this.authors[i].getId().equals(author.getId())) {
-                this.authors[i] = null;
-                break;
+        Iterator<Author> iter = authors.iterator();
+        while (iter.hasNext()) {
+            Author a = iter.next();
+            if (a.getId().equals(author.getId())) {
+                iter.remove();
             }
         }
-        Author[] newAuthors = new Author[this.authors.length - 1];
-        int index = 0;
-        for (Author a : this.authors) {
-            if (a != null) {
-                newAuthors[index] = a;
-                index++;
-            }
-        }
-        this.authors = newAuthors;
     }
 
     public boolean withoutAuthors() {
-        return this.authors.length==0;
+        return this.authors.size()==0;
     }
 
 }
