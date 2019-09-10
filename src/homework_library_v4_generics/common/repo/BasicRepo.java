@@ -1,17 +1,17 @@
-package homework_library_v4_generics;
+package homework_library_v4_generics.common.repo;
 
 import java.util.Comparator;
 
-public interface Repo <T>{
+public interface BasicRepo<T,ID>{
     int count();
 
     void print();
 
     void delete(T obj);
 
-    Long add(T obj);
+    ID add(T obj);
 
-    T getById(Long Id);
+    T getById(ID Id);
 
     void sort();
 

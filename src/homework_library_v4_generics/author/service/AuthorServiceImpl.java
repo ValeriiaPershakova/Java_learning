@@ -8,11 +8,11 @@ import homework_library_v4_generics.book.repo.BookRepo;
 import java.util.Comparator;
 
 public class AuthorServiceImpl implements AuthorService {
-    private final AuthorRepo<Author> authorRepo;
-    private final BookRepo<Book> bookRepo;
+    private final AuthorRepo authorRepo;
+    private final BookRepo bookRepo;
 
-    public AuthorServiceImpl(AuthorRepo<Author> authorRepo,
-                             BookRepo<Book> bookRepo) {
+    public AuthorServiceImpl(AuthorRepo authorRepo,
+                             BookRepo bookRepo) {
         this.authorRepo = authorRepo;
         this.bookRepo = bookRepo;
     }
@@ -30,21 +30,23 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void delete(Author author) {
-        Book[] booksWithAuthor = bookRepo.findBooksByAuthorAsArray(author.getId());
+        if (author!=null) {
+            Book[] booksWithAuthor = bookRepo.findBooksByAuthorAsArray(author.getId());
 
-        if (booksWithAuthor != null) {
-            for (Book book : booksWithAuthor) {
-                if (book != null) {
-                    book.deleteAuthor(author);
+            if (booksWithAuthor != null) {
+                for (Book book : booksWithAuthor) {
+                    if (book != null) {
+                        book.deleteAuthor(author);
 
-                    if (book.withoutAuthors()) {
-                        bookRepo.delete(book);
+                        if (book.withoutAuthors()) {
+                            bookRepo.delete(book);
+                        }
                     }
                 }
             }
-        }
 
-        authorRepo.delete(author);
+            authorRepo.delete(author);
+        }
     }
 
     @Override

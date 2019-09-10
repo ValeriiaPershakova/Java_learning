@@ -8,10 +8,10 @@ import homework_library_v4_generics.book.repo.BookRepo;
 import java.util.Comparator;
 
 public class BookServiceImpl implements BookService {
-    private final AuthorRepo<Author> authorRepo;
-    private final BookRepo<Book> bookRepo;
+    private final AuthorRepo authorRepo;
+    private final BookRepo bookRepo;
 
-    public BookServiceImpl(AuthorRepo<Author> authorRepo, BookRepo<Book> bookRepo) {
+    public BookServiceImpl(AuthorRepo authorRepo, BookRepo bookRepo) {
         this.authorRepo = authorRepo;
         this.bookRepo = bookRepo;
     }
@@ -70,7 +70,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book find(String name) {
+    public Book[] find(String name) {
         return bookRepo.find(name);
     }
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class AuthorRepoArrayImpl<T extends Author> implements AuthorRepo<T> {
+public class AuthorRepoArrayImpl implements AuthorRepo {
 
     @Override
     public int count() {
@@ -26,12 +26,12 @@ public class AuthorRepoArrayImpl<T extends Author> implements AuthorRepo<T> {
     }
 
     @Override
-    public void delete(T author) {
+    public void delete(Author author) {
         ArrayStorage.removeAuthor(author);
     }
 
     @Override
-    public Long add(T author) {
+    public Long add(Author author) {
         ArrayStorage.addAuthor(author);
         return  (author).getId();
     }
@@ -79,11 +79,11 @@ public class AuthorRepoArrayImpl<T extends Author> implements AuthorRepo<T> {
     }
 
     @Override
-    public T getById(Long authorId) {
-        T author = null;
+    public Author getById(Long authorId) {
+        Author author = null;
         for (Author a : ArrayStorage.getAllAuthors()) {
             if (a.getId().equals(authorId)) {
-                author = (T)a;
+                author = a;
             }
         }
         return author;

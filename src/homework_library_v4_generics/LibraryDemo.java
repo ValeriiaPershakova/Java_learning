@@ -20,19 +20,21 @@ import homework_library_v4_generics.book.repo.NameComparator;
 import homework_library_v4_generics.book.service.BookService;
 import homework_library_v4_generics.book.service.BookServiceImpl;
 
+import static homework_library_v4_generics.common.utils.CollectionUtils.mutableListOf;
+
 public class LibraryDemo {
     public static void main(String[] args) {
-        //String storageType = "arrays";
-        String storageType = "collection";
-        BookRepo<Book> bookRepo = null;
-        AuthorRepo<Author> authorRepo = null;
+        String storageType = "arrays";
+        //String storageType = "collection";
+        BookRepo bookRepo = null;
+        AuthorRepo authorRepo = null;
 
         if (storageType.equals("arrays")) {
-            bookRepo = new BookRepoArrayImpl<>();
-            authorRepo = new AuthorRepoArrayImpl<>();
+            bookRepo = new BookRepoArrayImpl();
+            authorRepo = new AuthorRepoArrayImpl();
         } else if (storageType.equals("collection")) {
-            bookRepo = new BookRepoCollectionImpl<>();
-            authorRepo = new AuthorRepoCollectionImpl<>();
+            bookRepo = new BookRepoCollectionImpl();
+            authorRepo = new AuthorRepoCollectionImpl();
         }
 
         AuthorService authorService = new AuthorServiceImpl(authorRepo, bookRepo);
@@ -56,7 +58,7 @@ public class LibraryDemo {
 
         System.out.println("DELETING");
         authorService.delete(authorService.find("Dyachenko")[0]);
-        bookService.delete(bookService.find("Zolotaya rybka"));
+        bookService.delete(bookService.find("Zolotaya rybka")[0]);
 
         authorService.print();
         bookService.printBookAndItsAuthor();
@@ -89,7 +91,7 @@ public class LibraryDemo {
         inputAuthor1.setLastName("Pushkin");
         inputAuthor1.setYearOfBorn(22);
         Author author1 = valueOf(inputAuthor1);
-        author1.setBooks(new Book[]{book1, book2});
+        author1.setBooks(mutableListOf(book1, book2));
 
         InputAuthor inputAuthor2 = new InputAuthor();
         inputAuthor2.setLastName("Dyachenko");
@@ -103,12 +105,12 @@ public class LibraryDemo {
         inputAuthor3.setYearOfBorn(22);
         Author author3 = valueOf(inputAuthor3);
 
-        author2.setBooks(new Book[]{book3});
-        author3.setBooks(new Book[]{book3});
+        author2.setBooks(mutableListOf(book3));
+        author3.setBooks(mutableListOf(book3));
 
-        book1.setAuthors(new Author[]{author1});
-        book2.setAuthors(new Author[]{author1});
-        book3.setAuthors(new Author[]{author2, author3});
+        book1.setAuthors(mutableListOf(author1));
+        book2.setAuthors(mutableListOf(author1));
+        book3.setAuthors(mutableListOf(author2, author3));
 
 
         bookService.add(book1);

@@ -1,27 +1,13 @@
 package homework_library_v4_generics.book.service;
 
 import homework_library_v4_generics.book.domain.Book;
+import homework_library_v4_generics.common.service.BasicService;
 
 import java.util.Comparator;
 
-public interface BookService {
-    int count();
-
-    void print();
-
+public interface BookService extends BasicService<Book, Long> {
     void printBookAndItsAuthor();
-
-    void delete(Book book);
-
-    Long add(Book book);
 
     Book[] findBooksByAuthor(long id);
 
-    void defaultSort();
-
-    void sort(Comparator comparator);
-
-    Book find(String name);
-
-    Book getById(Long bookId);
 }

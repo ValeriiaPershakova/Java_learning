@@ -1,28 +1,20 @@
 package homework_library_v4_generics.book.domain;
 
 import homework_library_v4_generics.author.domain.Author;
+import homework_library_v4_generics.common.domain.BasicDomain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class Book {
-    protected Long id;
+public class Book extends BasicDomain<Long> {
     protected String name;
     protected int publishYear;
     protected int totalPages;
     protected List<Author> authors;
     protected BookType bookType;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -52,8 +44,8 @@ public class Book {
         return authors;
     }
 
-    public void setAuthors(Author[] authors) {
-        this.authors = new ArrayList<>(Arrays.asList(authors));
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public BookType getBookType() {

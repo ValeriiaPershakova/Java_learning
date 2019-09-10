@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class BookRepoArrayImpl<T extends Book> implements BookRepo<T> {
+public class BookRepoArrayImpl implements BookRepo {
 
     @Override
     public int count() {
@@ -34,12 +34,12 @@ public class BookRepoArrayImpl<T extends Book> implements BookRepo<T> {
     }
 
     @Override
-    public void delete(T book) {
+    public void delete(Book book) {
         ArrayStorage.removeBook(book);
     }
 
     @Override
-    public Long add(T book) {
+    public Long add(Book book) {
         ArrayStorage.addBook(book);
         return book.getId();
     }
@@ -76,25 +76,25 @@ public class BookRepoArrayImpl<T extends Book> implements BookRepo<T> {
     }
 
     @Override
-    public Book find(String name) {
-        Book book = null;
+    public Book[] find(String name) {
+        List<Book> book = new ArrayList<>();
         for (Book a : ArrayStorage.getAllBooks()) {
             if (a != null) {
                 if (a.getName().equals(name)) {
-                    book = a;
+                    book.add(a);
                     break;
                 }
             }
         }
-        return book;
+        return book.toArray(new Book[0]);
     }
 
     @Override
-    public T getById(Long bookId) {
-        T book = null;
+    public Book getById(Long bookId) {
+        Book book = null;
         for (Book b : ArrayStorage.getAllBooks()) {
             if (b.getId().equals(bookId)) {
-                book = (T)b;
+                book = b;
             }
         }
         return book;

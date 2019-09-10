@@ -2,6 +2,7 @@ package homework_library_v4_generics.storage;
 
 import homework_library_v4_generics.author.domain.Author;
 import homework_library_v4_generics.book.domain.Book;
+import homework_library_v4_generics.common.utils.ArrayUtils;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -48,21 +49,16 @@ public final class ArrayStorage {
         }
 
         Book[] newBooks = new Book[books.length];
-        int index = 0;
-        for (Book b : books) {
-            if (b != null) {
-                newBooks[index] = b;
-                index++;
-            }
-        }
+        ArrayUtils.copyNotNullElements(books,newBooks);
 
         books = newBooks;
     }
 
     public static void increaseBookStorage() {
-        Book[] books = new Book[bookIndex + CAPACITY];
-        System.arraycopy(ArrayStorage.books, 0, books, 0, bookIndex);
-        ArrayStorage.books = books;
+        Book[] newBooks = new Book[bookIndex + CAPACITY];
+        //System.arraycopy(ArrayStorage.books, 0, books, 0, bookIndex);
+        ArrayUtils.copyElements(books, newBooks);
+        ArrayStorage.books = newBooks;
     }
 
     //Sort book by Name
@@ -87,6 +83,7 @@ public final class ArrayStorage {
         }
         ArrayStorage.books = books;
     }
+
     public static void sortBooks(Comparator comparator) {
         Arrays.sort(ArrayStorage.books, comparator);
     }
@@ -112,16 +109,17 @@ public final class ArrayStorage {
 
     public static void increaseAuthorsStorage() {
 
-        Author[] authors = new Author[authorIndex + CAPACITY];
-        System.arraycopy(ArrayStorage.authors, 0, authors, 0, authorIndex);
-        ArrayStorage.authors = authors;
+        Author[] newAuthors = new Author[authorIndex + CAPACITY];
+        //System.arraycopy(ArrayStorage.authors, 0, authors, 0, authorIndex);
+        ArrayUtils.copyElements(authors, newAuthors);
+        ArrayStorage.authors = newAuthors;
     }
 
     public static void removeAuthor(Author author) {
 
         for (int i = 0; i < authors.length; i++) {
 
-            if (author!=null && author.getId().equals(authors[i].getId())) {
+            if (author != null && author.getId().equals(authors[i].getId())) {
                 authors[i] = null;
                 authorIndex--;
                 break;
@@ -129,13 +127,7 @@ public final class ArrayStorage {
 
         }
         Author[] newAuthors = new Author[ArrayStorage.authors.length];
-        int index = 0;
-        for (Author a : authors) {
-            if (a != null) {
-                newAuthors[index] = a;
-                index++;
-            }
-        }
+        ArrayUtils.copyNotNullElements(authors, newAuthors);
 
         authors = newAuthors;
     }
@@ -162,6 +154,7 @@ public final class ArrayStorage {
         }
         ArrayStorage.authors = authors;
     }
+
     public static void sortAuthors(Comparator<Author> comparator) {
         Arrays.sort(ArrayStorage.authors, comparator);
     }

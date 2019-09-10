@@ -1,12 +1,11 @@
 package homework_library_v4_generics.book.repo;
 
-import homework_library_v4_generics.Repo;
+import homework_library_v4_generics.common.repo.BasicRepo;
 import homework_library_v4_generics.book.domain.Book;
 
-import java.util.Comparator;
 import java.util.List;
 
-public interface BookRepo<T> extends Repo<T> {
+public interface BookRepo extends BasicRepo<Book, Long> {
 
     void printBookAndItsAuthor();
 
@@ -14,7 +13,7 @@ public interface BookRepo<T> extends Repo<T> {
 
     List<Book> findBooksByAuthorAsList(long id);
 
-    Book find(String name);
+    Book[] find(String name);
 
 
 }
