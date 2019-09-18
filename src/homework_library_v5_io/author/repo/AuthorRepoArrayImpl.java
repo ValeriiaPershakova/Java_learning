@@ -3,13 +3,17 @@ package homework_library_v5_io.author.repo;
 
 import homework_library_v5_io.author.domain.Author;
 import homework_library_v5_io.book.domain.Book;
+import homework_library_v5_io.common.utils.CollectionUtils;
 import homework_library_v5_io.storage.ArrayStorage;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class AuthorRepoArrayImpl implements AuthorRepo {
+
+    @Override
+    public List<Author> getAll() {
+        return CollectionUtils.mutableListOf(ArrayStorage.getAllAuthors());
+    }
 
     @Override
     public int count() {

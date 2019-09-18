@@ -2,13 +2,20 @@ package homework_library_v5_io.book.repo;
 
 import homework_library_v5_io.author.domain.Author;
 import homework_library_v5_io.book.domain.Book;
+import homework_library_v5_io.common.utils.CollectionUtils;
 import homework_library_v5_io.storage.ArrayStorage;
+import homework_library_v5_io.storage.CollectionStorage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class BookRepoArrayImpl implements BookRepo {
+
+    @Override
+    public List<Book> getAll() {
+        return CollectionUtils.mutableListOf(ArrayStorage.getAllBooks());
+    }
 
     @Override
     public int count() {

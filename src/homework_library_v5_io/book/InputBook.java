@@ -2,14 +2,19 @@ package homework_library_v5_io.book;
 
 import homework_library_v5_io.book.domain.BookType;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class InputBook {
     private String name;
     private int publishYear;
     private int totalPages;
     private BookType bookType;
 
+    private String bookPhysicType;
     private String paint;
     private String fontFamily;
+    private Set<String> authorsRef = new HashSet<>();
 
     public String getName() {
         return name;
@@ -57,5 +62,21 @@ public class InputBook {
 
     public void setFontFamily(String fontFamily) {
         this.fontFamily = fontFamily;
+    }
+
+    public String getBookPhysicType() {
+        return bookPhysicType;
+    }
+
+    public void setBookPhysicType(String bookPhysicType) {
+        this.bookPhysicType = bookPhysicType;
+    }
+
+    public Set<String> getAuthorsRef() {
+        return authorsRef;
+    }
+
+    public void setAuthorsRef(Set<String> authorsRef) {
+        this.authorsRef = authorsRef;
     }
 }

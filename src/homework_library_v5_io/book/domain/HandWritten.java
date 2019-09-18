@@ -22,4 +22,10 @@ public class HandWritten extends Book {
                 ", paint='" + paint +
                 '}';
     }
+
+    @Override
+    public String forExport() {
+        return super.forExport()+
+                "\npaint="+paint+"}";
+    }
 }

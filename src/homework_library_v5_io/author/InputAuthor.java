@@ -4,6 +4,7 @@ public class InputAuthor {
     private String lastName;
     private String name;
     private int yearOfBorn;
+    private String ID;
 
     public String getLastName() {
         return lastName;
@@ -27,5 +28,13 @@ public class InputAuthor {
 
     public void setYearOfBorn(int yearOfBorn) {
         this.yearOfBorn = yearOfBorn;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }

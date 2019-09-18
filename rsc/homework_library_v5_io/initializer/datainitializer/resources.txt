@@ -4,7 +4,7 @@ name=Zolotaya rybka;
 year=11;
 bookType=Fiction;
 paint=Ink;
-authors=Pushkin Aleksander;}
+authorsRef=1;}
 ***
 Book {
 bookPhysicType=Printed;
@@ -12,7 +12,7 @@ name=Ruslan and Ludmila;
 year=11;
 bookType=Romantic;
 fontFamily=Times new roman;
-authors=Pushkin Aleksander;} 
+authorsRef=1;}
 ***
 Book {
 bookPhysicType=Printed;
@@ -20,23 +20,23 @@ name=Ritual;
 year=18;
 bookType=Romantic;
 fontFamily=Times new roman;
-authors=Dyachenko Sergei, Dyachenko Marina;}
+authorsRef=2,3;}
 ***
 Author {
+id=1
 lastName=Pushkin;
 name=Aleksander;
-year=22;
-books=Zolotaya rybka, Ruslan and Ludmila;}
+year=22;}
 ***
 Author {
+id=2
 lastName=Dyachenko;
 name=Marina;
-year=22;
-books=Ritual;}
+year=22;}
 ***
 Author {
+id=3
 lastName=Dyachenko;
 name=Sergei;
-year=22;
-books=Ritual;}
+year=22;}
 ***

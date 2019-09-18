@@ -22,4 +22,10 @@ public class Printed extends Book {
                 ", fontFamily=" + fontFamily+
                 '}';
     }
+
+    @Override
+    public String forExport() {
+        return super.forExport()+
+                "\nfontFamily="+fontFamily+"}";
+    }
 }

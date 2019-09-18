@@ -10,6 +10,11 @@ import java.util.List;
 
 public class BookRepoCollectionImpl implements BookRepo {
     @Override
+    public List<Book> getAll() {
+        return CollectionStorage.getAllBooks();
+    }
+
+    @Override
     public int count() {
         return CollectionStorage.getTotalBooks();
     }

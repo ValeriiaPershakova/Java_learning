@@ -3,6 +3,7 @@ package homework_library_v5_io.author.domain;
 import homework_library_v5_io.book.domain.Book;
 import homework_library_v5_io.common.domain.BasicDomain;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,6 +52,12 @@ public class Author extends BasicDomain<Long> {
         this.books = (books);
     }
 
+    public void initBooksList() {
+        if (books == null) {
+            books = new ArrayList<>();
+        }
+    }
+
     @Override
     public String toString() {
         return "Author{" +
@@ -70,6 +77,14 @@ public class Author extends BasicDomain<Long> {
             }
         }
 
+    }
+    public String forExport() {
+        return "\n***\nAuthor {" +
+                "\nid=" + id +
+                "\nlastName=" + lastName +
+                "\nname=" + name +
+                "\nyear=" + yearOfBorn +
+                '}';
     }
 
     public boolean withoutBooks() {

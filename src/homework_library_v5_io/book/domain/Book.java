@@ -3,6 +3,7 @@ package homework_library_v5_io.book.domain;
 import homework_library_v5_io.author.domain.Author;
 import homework_library_v5_io.common.domain.BasicDomain;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -54,6 +55,12 @@ public class Book extends BasicDomain<Long> {
         this.bookType = bookType;
     }
 
+    public void initAuthorsList() {
+        if (authors == null) {
+            authors = new ArrayList<>();
+        }
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -71,10 +78,28 @@ public class Book extends BasicDomain<Long> {
                 ", Authors:" + this.getAuthorsAsStr() +
                 '}';
     }
+    public String forExport() {
+        return "\n***\nBook {"+
+                "\nbookPhysicType=" + getClass().getSimpleName()+
+                "\nname="+name+
+                "\nyear="+publishYear+
+                "\nbookType="+bookType+
+                "\nauthorsRef="+this.getAuthorsIdAsString();
+    }
+
+    private String getAuthorsIdAsString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Author author : authors) {
+            if (author != null) {
+                stringBuilder.append(author.getId()+",");
+            }
+        }
+        return stringBuilder.toString();
+    }
 
     private String getAuthorsAsStr() {
-        StringBuilder string= new StringBuilder();
-        for (Author author: authors) {
+        StringBuilder string = new StringBuilder();
+        for (Author author : authors) {
             if (author != null) {
                 string.append(author.getLastName() + ", ");
             }
@@ -93,7 +118,7 @@ public class Book extends BasicDomain<Long> {
     }
 
     public boolean withoutAuthors() {
-        return this.authors.size()==0;
+        return this.authors.size() == 0;
     }
 
 }

@@ -5,7 +5,9 @@ import homework_library_v5_io.author.repo.AuthorRepo;
 import homework_library_v5_io.book.domain.Book;
 import homework_library_v5_io.book.repo.BookRepo;
 
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 
 public class BookServiceImpl implements BookService {
     private final AuthorRepo authorRepo;
@@ -14,6 +16,11 @@ public class BookServiceImpl implements BookService {
     public BookServiceImpl(AuthorRepo authorRepo, BookRepo bookRepo) {
         this.authorRepo = authorRepo;
         this.bookRepo = bookRepo;
+    }
+
+    @Override
+    public List<Book> getAll() {
+        return bookRepo.getAll();
     }
 
     @Override
@@ -52,6 +59,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public Long add(Book book) {
         return bookRepo.add(book);
+    }
+
+    @Override
+    public void add(Collection<Book> books) {
+        for (Book book : books) {
+            add(book);
+        }
     }
 
     @Override

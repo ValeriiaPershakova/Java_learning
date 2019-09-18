@@ -1,0 +1,44 @@
+<resources>
+    <book>
+        <bookPhysicType>HandWritten</bookPhysicType>
+        <name>Zolotaya rybka</name>
+        <year>11</year>
+        <bookType>Fiction</bookType>
+        <paint>Ink</paint>
+        <authorsRef>1</authorsRef>
+    </book>
+    <book>
+        <bookPhysicType>Printed</bookPhysicType>
+        <name>Ruslan and Ludmila</name>
+        <year>11</year>
+        <bookType>Romantic</bookType>
+        <fontFamily>Times new roman</fontFamily>
+        <authorsRef>1</authorsRef>
+    </book>
+    <book>
+        <bookPhysicType>Printed</bookPhysicType>
+        <name>Ritual</name>
+        <year>18</year>
+        <bookType>Romantic</bookType>
+        <fontFamily>Times new roman</fontFamily>
+        <authorsRef>2,3</authorsRef>
+    </book>
+    <author>
+        <id>1</id>
+        <lastName>Pushkin</lastName>
+        <name>Aleksander</name>
+        <year>22</year>
+    </author>
+    <author>
+        <id>2</id>
+        <lastName>Dyachenko</lastName>
+        <name>Marina</name>
+        <year>22</year>
+    </author>
+    <author>
+        <id>3</id>
+        <lastName>Dyachenko</lastName>
+        <name>Sergei</name>
+        <year>22</year>
+    </author>
+</resources>

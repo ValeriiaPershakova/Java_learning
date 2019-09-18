@@ -1,4 +1,4 @@
-package homework_library_v5_io.common.init;
+package homework_library_v5_io.initializer.datainitializer;
 
 import homework_library_v5_io.author.InputAuthor;
 import homework_library_v5_io.author.domain.Author;
@@ -19,12 +19,12 @@ import static homework_library_v5_io.common.utils.CollectionUtils.mutableListOf;
 
 public class Initor {
 
-    public static void initData(InitType initType, BookService bookService, AuthorService authorService) {
-        switch (initType) {
-            case RAM:
+    public static void initData(DataInitializerType dataInitializerType, BookService bookService, AuthorService authorService) {
+        switch (dataInitializerType) {
+            case IN_MEMORY:
                 initRAM(bookService, authorService);
                 break;
-            case FROM_FILE:
+            case FROM_TXT_FILE:
                 initFromFile(bookService, authorService);
                 break;
         }
@@ -83,6 +83,7 @@ public class Initor {
                     author = valueOf(inputAuthor);
 
                     inputAuthors.add(author);
+                    break;
                 }
             }
         }
