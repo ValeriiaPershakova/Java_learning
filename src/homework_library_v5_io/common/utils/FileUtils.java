@@ -19,4 +19,7 @@ public class FileUtils {
             return tempFile.toFile();
         }
     }
+    public static boolean isFileValid(File file) {
+        return file != null && file.isFile() && file.exists();
+    }
 }

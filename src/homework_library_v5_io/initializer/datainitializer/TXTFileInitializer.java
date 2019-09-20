@@ -5,16 +5,17 @@ import homework_library_v5_io.author.domain.Author;
 import homework_library_v5_io.book.InputBook;
 import homework_library_v5_io.book.domain.Book;
 import homework_library_v5_io.book.domain.BookType;
-import homework_library_v5_io.common.utils.CollectionUtils;
 import homework_library_v5_io.common.utils.FileUtils;
 import homework_library_v5_io.initializer.serviceinitializer.ServicesHolder;
+import homework_library_v5_io.initializer.datainitializer.ParseResult;
+
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static homework_library_v5_io.initializer.datainitializer.InitUtils.*;
+import static homework_library_v5_io.common.utils.InitUtils.*;
 
 
 public class TXTFileInitializer extends BasicDataInitializer {

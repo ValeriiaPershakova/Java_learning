@@ -1,4 +1,4 @@
-<resources>
+<library>
     <book>
         <bookPhysicType>HandWritten</bookPhysicType>
         <name>Zolotaya rybka</name>
@@ -41,4 +41,4 @@
         <name>Sergei</name>
         <year>22</year>
     </author>
-</resources>
+</library>

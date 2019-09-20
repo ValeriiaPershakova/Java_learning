@@ -24,5 +24,6 @@ public interface BasicService<T, ID> {
     T[] find(String name);
 
 
+
     T getById(ID bookId);
 }

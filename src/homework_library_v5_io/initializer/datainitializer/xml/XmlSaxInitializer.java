@@ -1,28 +1,25 @@
-package homework_library_v5_io.initializer.datainitializer;
+package homework_library_v5_io.initializer.datainitializer.xml;
 
 import homework_library_v5_io.author.InputAuthor;
 import homework_library_v5_io.author.domain.Author;
 import homework_library_v5_io.book.InputBook;
 import homework_library_v5_io.book.domain.Book;
-import homework_library_v5_io.book.domain.BookType;
 import homework_library_v5_io.common.utils.FileUtils;
+import homework_library_v5_io.initializer.datainitializer.BasicDataInitializer;
+import homework_library_v5_io.initializer.datainitializer.ParseResult;
 import homework_library_v5_io.initializer.serviceinitializer.ServicesHolder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static homework_library_v5_io.initializer.datainitializer.InitUtils.*;
+import static homework_library_v5_io.common.utils.InitUtils.*;
+import static homework_library_v5_io.common.utils.xml.sax.XmlSaxUtils.*;
 
-public class XMLBiglFileInitializer extends BasicDataInitializer {
-    public XMLBiglFileInitializer(ServicesHolder servicesHolder) {
+public class XmlSaxInitializer extends BasicDataInitializer {
+    public XmlSaxInitializer(ServicesHolder servicesHolder) {
         super(servicesHolder);
     }
 
@@ -31,10 +28,9 @@ public class XMLBiglFileInitializer extends BasicDataInitializer {
 
     @Override
     public void initData() throws Exception {
-        File fileWithInitData = FileUtils.createFileFromSource("java_homework", "any", PATH);
-        if (isFileValid(fileWithInitData)) {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser saxParser = factory.newSAXParser();
+        File fileWithInitData = FileUtils.createFileFromSource("java_homework_XmlSax", "any", PATH);
+        if (FileUtils.isFileValid(fileWithInitData)) {
+            SAXParser saxParser = getSaxParser();
             LibrarySaxHandler saxHandler = new LibrarySaxHandler();
 
             saxParser.parse(fileWithInitData,saxHandler);
@@ -61,10 +57,6 @@ public class XMLBiglFileInitializer extends BasicDataInitializer {
         return new ParseResult(new ArrayList<>(booksMap.values()), new ArrayList<>(authorsMap.values()));
     }
 
-
-    private static boolean isFileValid(File file) {
-        return file != null && file.isFile() && file.exists();
-    }
 
 
 }

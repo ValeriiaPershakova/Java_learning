@@ -8,4 +8,9 @@ public interface BookService extends BasicService<Book, Long> {
 
     Book[] findBooksByAuthor(long id);
 
+    Book[] findByName(FindByNameFuncInterface findByNameFuncInterface, String name);
+    Book[] findByYear(FindByYearFuncInterface findByNameFuncInterface, int year);
+    Book[] findBy(FindByFuncInterface findByFuncInterface, String findBy, String param);
+
+
 }

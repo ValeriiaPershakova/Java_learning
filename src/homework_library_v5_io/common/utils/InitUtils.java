@@ -1,4 +1,4 @@
-package homework_library_v5_io.initializer.datainitializer;
+package homework_library_v5_io.common.utils;
 
 import homework_library_v5_io.author.domain.Author;
 import homework_library_v5_io.book.InputBook;
@@ -26,23 +26,7 @@ public class InitUtils {
         public static final String PAINT = "paint";
         public static final String AUTHORS = "authorsRef";
     }
-    public static class ParseResult {
-        public final List<Book> books;
-        public final List<Author> authors;
 
-        public ParseResult(List<Book> books, List<Author> authors) {
-            this.books = books;
-            this.authors = authors;
-        }
-
-        public boolean hasAuthors() {
-            return CollectionUtils.isNotBlank(authors);
-        }
-
-        public boolean hasBooks() {
-            return CollectionUtils.isNotBlank(books);
-        }
-    }
     public static void linkAuthorsAndBooks(Map<String, Author> authorsMap, Map<InputBook, Book> booksMap) {// parseInt author ID to be sure authors_ref are correct?
         for (Map.Entry<InputBook, Book> bookEntry : booksMap.entrySet()) {
             InputBook inputBook = bookEntry.getKey();

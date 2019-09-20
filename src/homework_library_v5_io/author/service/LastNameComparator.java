@@ -1,4 +1,4 @@
-package homework_library_v5_io.author.repo;
+package homework_library_v5_io.author.service;
 
 import homework_library_v5_io.author.domain.Author;
 

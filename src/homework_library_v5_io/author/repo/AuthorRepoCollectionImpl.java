@@ -1,8 +1,8 @@
 package homework_library_v5_io.author.repo;
 
 import homework_library_v5_io.author.domain.Author;
+import homework_library_v5_io.author.service.LastNameComparator;
 import homework_library_v5_io.book.domain.Book;
-import homework_library_v5_io.common.utils.CollectionUtils;
 import homework_library_v5_io.storage.CollectionStorage;
 
 import java.util.ArrayList;

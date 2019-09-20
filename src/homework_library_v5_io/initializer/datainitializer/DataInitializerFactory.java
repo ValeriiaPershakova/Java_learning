@@ -1,5 +1,7 @@
 package homework_library_v5_io.initializer.datainitializer;
 
+import homework_library_v5_io.initializer.datainitializer.xml.XmlDomInitializer;
+import homework_library_v5_io.initializer.datainitializer.xml.XmlSaxInitializer;
 import homework_library_v5_io.initializer.serviceinitializer.ServicesHolder;
 
 public final class DataInitializerFactory {
@@ -13,11 +15,11 @@ public final class DataInitializerFactory {
              case FROM_TXT_FILE:{
                  return new TXTFileInitializer(servicesHolder);
              }
-             case FROM_XML_FILE_SMALL:{
-                return new XMLSmallFileInitializer(servicesHolder);
+             case FROM_XML_WITH_DOM:{
+                return new XmlDomInitializer(servicesHolder);
              }
-             case FROM_XML_FILE_BIG:{
-                 return new XMLBiglFileInitializer(servicesHolder);
+             case FROM_XML_WITH_SAX:{
+                 return new XmlSaxInitializer(servicesHolder);
              }
              default:{
                  throw  new RuntimeException("Unknown initilizer for '" + dataInitializerType+ "'");

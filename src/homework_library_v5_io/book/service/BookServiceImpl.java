@@ -73,6 +73,7 @@ public class BookServiceImpl implements BookService {
         return bookRepo.findBooksByAuthorAsArray(id);
     }
 
+
     @Override
     public void defaultSort() {
         bookRepo.sort();
@@ -88,8 +89,24 @@ public class BookServiceImpl implements BookService {
         return bookRepo.find(name);
     }
 
+
     @Override
     public Book getById(Long bookId) {
         return bookRepo.getById(bookId);
+    }
+
+    @Override
+    public Book[] findByName(FindByNameFuncInterface findByNameFuncInterface, String name){
+        return findByNameFuncInterface.findByName(name);
+    }
+
+    @Override
+    public Book[] findByYear(FindByYearFuncInterface findByYearFuncInterface, int year) {
+        return findByYearFuncInterface.findByYear(year);
+    }
+
+    @Override
+    public Book[] findBy(FindByFuncInterface findByFuncInterface, String findBy, String param) {
+        return findByFuncInterface.find(findBy,param);
     }
 }
