@@ -8,6 +8,7 @@ import homework_library_v5_io.storage.CollectionStorage;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class BookRepoCollectionImpl implements BookRepo {
     @Override
@@ -75,6 +76,11 @@ public class BookRepoCollectionImpl implements BookRepo {
     }
 
     @Override
+    public void sort(List<Book> itemsToSort, Comparator<Book> comparator) {
+        itemsToSort.sort(comparator);
+    }
+
+    @Override
     public Book[] find(String name) {
         List<Book> searchingBook = new ArrayList<>();
         for (Book book : CollectionStorage.getAllBooks()) {
@@ -95,5 +101,16 @@ public class BookRepoCollectionImpl implements BookRepo {
             }
         }
         return book;
+    }
+
+    @Override
+    public List<Book> find(List<Book> items, Predicate<Book> predicate) {
+        List<Book> foundBooks = new ArrayList<>();
+        for (Book book : items) {
+            if (predicate.test(book)) {
+                foundBooks.add(book);
+            }
+        }
+        return foundBooks;
     }
 }

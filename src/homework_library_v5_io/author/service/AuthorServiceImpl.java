@@ -78,11 +78,12 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepo.sort(comparator);
     }
     @Override
-    public Author[] find(String lastName) {
-        return authorRepo.find(lastName);
+    public List<Author> findByLastName(String lastName) {
+        return authorRepo.find(authorRepo.getAll(),(author)->author.getLastName().equals(lastName));
     }
-    public Author find(String lastName, String name) {
-        return authorRepo.find(lastName,name);
+    @Override
+    public Author findByFullName(String lastName, String name) {
+        return authorRepo.find(authorRepo.getAll(),(author -> (author.getLastName().equals(lastName))&&(author.getName().equals(name)))).get(0);
     }
 
     @Override

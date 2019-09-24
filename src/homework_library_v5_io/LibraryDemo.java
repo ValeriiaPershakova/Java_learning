@@ -55,62 +55,27 @@ public class LibraryDemo {
         System.out.println("Authors: " + authorService.count() + "; Books: " + bookService.count());
 
         System.out.println("SORTING");
-        authorService.defaultSort();
-        bookService.defaultSort();
         authorService.sort(new LastNameComparator());
         bookService.sort(new NameComparator());
         //sorting by book name
-        bookService.getAll().sort((b1, b2) -> b1.getName().compareTo(b2.getName()));
+        bookService.sortByName(bookService.getAll());
         bookService.print();
         //sorting by publish year
-        bookService.getAll().sort((b1, b2) -> Integer.compare(b1.getPublishYear(), b2.getPublishYear()));
+        bookService.sortByPublishYear(bookService.getAll());
         bookService.print();
         authorService.print();
 
         System.out.println("DELETING");
-        authorService.delete(authorService.find("Dyachenko")[0]);
-        bookService.delete(bookService.find("Zolotaya rybka")[0]);
+        authorService.delete(authorService.findByFullName("Dyachenko", "Marina"));
+        bookService.delete(bookService.findByName("Zolotaya rybka").get(0));
 
         authorService.print();
         bookService.printBookAndItsAuthor();
 
         //Search
         System.out.println("Searched books");
-        System.out.println(bookService.findByName(bookService::find, "Ritual")[0].getName());
-        System.out.println(bookService.findByYear((year -> {
-            List<Book> books = new ArrayList<>();
-            for (Book book : bookService.getAll()) {
-                if (book.getPublishYear() == year) {
-                    books.add(book);
-                }
-            }
-            return books.toArray(new Book[0]);
-        }), 18)[0].getName());
-
-        Book searchBook = bookService.findBy((findBy, param) -> {
-            List<Book> books = new ArrayList<>();
-            switch (findBy) {
-                case "name": {
-                    for (Book book : bookService.getAll()) {
-                        if (book.getName().equals(param)) {
-                            books.add(book);
-                        }
-                    }
-                    break;
-                }
-                case "year": {
-                    for (Book book : bookService.getAll()) {
-                        if (book.getPublishYear()== Integer.parseInt(param)) {
-                            books.add(book);
-                        }
-                    }
-                    break;
-                }
-
-            }
-            return books.toArray(new Book[0]);
-        }, "name", "Ritual")[0];
-        System.out.println(searchBook.getName());
+        System.out.println(bookService.findByName("Ritual").get(0).getName());
+        System.out.println(bookService.findByPublishYear(18).get(0).getName());
 
 
         String exportPath = "out/production/Java_learning/homework_library_v5_io/export.txt";

@@ -24,8 +24,11 @@ public final class CollectionStorage {
     }
 
     public static void addBook(Book book) {
-        book.setId(IdGenerator.generateId());
-        books.add(book);
+        if (book != null) {
+            book.setId(IdGenerator.generateId());
+
+            books.add(book);
+        }
     }
 
     public static void removeBook(Book book) {
@@ -49,8 +52,11 @@ public final class CollectionStorage {
     }
 
     public static void addAuthor(Author author) {
-        author.setId(IdGenerator.generateId());
-        authors.add(author);
+        if (author != null) {
+            author.setId(IdGenerator.generateId());
+            authors.add(author);
+        }
+
     }
 
     public static void removeAuthor(Author author) {

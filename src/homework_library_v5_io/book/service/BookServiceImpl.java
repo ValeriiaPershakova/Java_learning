@@ -85,8 +85,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book[] find(String name) {
-        return bookRepo.find(name);
+    public void sortByName(List<Book> books) {
+        bookRepo.sort(books, (b1,b2)-> String.valueOf(b1.getName()).compareTo(b2.getName()));
+    }
+
+    @Override
+    public void sortByPublishYear(List<Book> books) {
+        bookRepo.sort(books,(b1,b2)->Integer.compare(b1.getPublishYear(),b2.getPublishYear()));
     }
 
 
@@ -96,17 +101,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book[] findByName(FindByNameFuncInterface findByNameFuncInterface, String name){
-        return findByNameFuncInterface.findByName(name);
+    public List<Book> findByName(String name){
+        return bookRepo.find(bookRepo.getAll(),(book -> book.getName().equals(name)));
     }
 
     @Override
-    public Book[] findByYear(FindByYearFuncInterface findByYearFuncInterface, int year) {
-        return findByYearFuncInterface.findByYear(year);
+    public List<Book> findByPublishYear(int year) {
+        return bookRepo.find(bookRepo.getAll(),(book -> Integer.compare(book.getPublishYear(),year)==0));
     }
 
-    @Override
-    public Book[] findBy(FindByFuncInterface findByFuncInterface, String findBy, String param) {
-        return findByFuncInterface.find(findBy,param);
-    }
 }

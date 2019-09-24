@@ -21,9 +21,5 @@ public interface BasicService<T, ID> {
 
     void sort(Comparator comparator);
 
-    T[] find(String name);
-
-
-
     T getById(ID bookId);
 }

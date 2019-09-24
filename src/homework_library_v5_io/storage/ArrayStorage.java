@@ -6,6 +6,7 @@ import homework_library_v5_io.common.utils.ArrayUtils;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.Supplier;
 
 public final class ArrayStorage {
     private static final int CAPACITY = 10;
@@ -30,18 +31,20 @@ public final class ArrayStorage {
     }
 
     public static void addBook(Book book) {
-        book.setId(IdGenerator.generateId());
-        if ((bookIndex % CAPACITY) == 0 && bookIndex != 0) {
-            increaseBookStorage();
+        if (book != null) {
+            book.setId(IdGenerator.generateId());
+            if ((bookIndex % CAPACITY) == 0 && bookIndex != 0) {
+                books = increaseStorage(books, () -> new Book[bookIndex + CAPACITY]);
+            }
+            books[bookIndex] = book;
+            bookIndex++;
         }
-        books[bookIndex] = book;
-        bookIndex++;
     }
 
     public static void removeBook(Book book) {
         for (int i = 0; i < books.length; i++) {
 
-            if (book.getId().equals(books[i].getId())) {
+            if (book != null && book.getId().equals(books[i].getId())) {
                 books[i] = null;
                 bookIndex--;
                 break;
@@ -49,17 +52,11 @@ public final class ArrayStorage {
         }
 
         Book[] newBooks = new Book[books.length];
-        ArrayUtils.copyNotNullElements(books,newBooks);
+        ArrayUtils.copyNotNullElements(books, newBooks);
 
         books = newBooks;
     }
 
-    public static void increaseBookStorage() {
-        Book[] newBooks = new Book[bookIndex + CAPACITY];
-        //System.arraycopy(ArrayStorage.books, 0, books, 0, bookIndex);
-        ArrayUtils.copyElements(books, newBooks);
-        ArrayStorage.books = newBooks;
-    }
 
     //Sort book by Name
     public static void sortBooks() {
@@ -99,21 +96,16 @@ public final class ArrayStorage {
     }
 
     public static void addAuthor(Author author) {
-        author.setId(IdGenerator.generateId());
-        if ((authorIndex % CAPACITY) == 0 && authorIndex != 0) {
-            increaseAuthorsStorage();
+        if (author != null) {
+            author.setId(IdGenerator.generateId());
+            if ((authorIndex % CAPACITY) == 0 && authorIndex != 0) {
+                authors = increaseStorage(authors, () -> new Author[authorIndex + CAPACITY]);
+            }
+            authors[authorIndex] = author;
+            authorIndex++;
         }
-        authors[authorIndex] = author;
-        authorIndex++;
     }
 
-    public static void increaseAuthorsStorage() {
-
-        Author[] newAuthors = new Author[authorIndex + CAPACITY];
-        //System.arraycopy(ArrayStorage.authors, 0, authors, 0, authorIndex);
-        ArrayUtils.copyElements(authors, newAuthors);
-        ArrayStorage.authors = newAuthors;
-    }
 
     public static void removeAuthor(Author author) {
 
@@ -158,4 +150,12 @@ public final class ArrayStorage {
     public static void sortAuthors(Comparator<Author> comparator) {
         Arrays.sort(ArrayStorage.authors, comparator);
     }
+
+    //-------Common-----------------------------------------------------------
+    private static <T> T[] increaseStorage(T[] oldArray, Supplier<T[]> increaser) {
+        T[] newArray = increaser.get();
+        ArrayUtils.copyElements(oldArray, newArray);
+        return newArray;
+    }
+
 }

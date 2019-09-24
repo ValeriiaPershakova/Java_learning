@@ -8,6 +8,7 @@ import homework_library_v5_io.storage.CollectionStorage;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class AuthorRepoCollectionImpl implements AuthorRepo {
     @Override
@@ -44,6 +45,11 @@ public class AuthorRepoCollectionImpl implements AuthorRepo {
     @Override
     public void sort(Comparator comparator) {
         CollectionStorage.getAllAuthors().sort(comparator);
+    }
+
+    @Override
+    public void sort(List<Author> itemsToSort, Comparator<Author> comparator) {
+        itemsToSort.sort(comparator);
     }
 
     @Override
@@ -96,5 +102,16 @@ public class AuthorRepoCollectionImpl implements AuthorRepo {
         }
         return author;
 
+    }
+
+    @Override
+    public List<Author> find(List<Author> items, Predicate<Author> predicate) {
+        List<Author> foundAuthors = new ArrayList<>();
+        for (Author author : items) {
+            if (predicate.test(author)) {
+                foundAuthors.add(author);
+            }
+        }
+        return foundAuthors;
     }
 }
