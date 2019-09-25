@@ -86,12 +86,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void sortByName(List<Book> books) {
-        bookRepo.sort(books, (b1,b2)-> String.valueOf(b1.getName()).compareTo(b2.getName()));
+        bookRepo.getAll().sort((b1,b2)->String.valueOf(b1.getName()).compareTo(b2.getName()));
     }
 
     @Override
     public void sortByPublishYear(List<Book> books) {
-        bookRepo.sort(books,(b1,b2)->Integer.compare(b1.getPublishYear(),b2.getPublishYear()));
+        bookRepo.getAll().sort((b1,b2)->Integer.compare(b1.getPublishYear(),b2.getPublishYear()));
     }
 
 

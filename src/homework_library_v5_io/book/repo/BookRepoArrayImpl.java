@@ -83,10 +83,6 @@ public class BookRepoArrayImpl implements BookRepo {
         ArrayStorage.sortBooks(comparator);
     }
 
-    @Override
-    public void sort(List<Book> itemsToSort, Comparator<Book> comparator) {
-        itemsToSort.sort(comparator);
-    }
 
     @Override
     public Book[] find(String name) {

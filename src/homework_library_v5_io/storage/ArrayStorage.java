@@ -34,7 +34,7 @@ public final class ArrayStorage {
         if (book != null) {
             book.setId(IdGenerator.generateId());
             if ((bookIndex % CAPACITY) == 0 && bookIndex != 0) {
-                books = increaseStorage(books, () -> new Book[bookIndex + CAPACITY]);
+                books = ArrayUtils.increaseStorage(books, () -> new Book[books.length + CAPACITY]);
             }
             books[bookIndex] = book;
             bookIndex++;
@@ -99,7 +99,7 @@ public final class ArrayStorage {
         if (author != null) {
             author.setId(IdGenerator.generateId());
             if ((authorIndex % CAPACITY) == 0 && authorIndex != 0) {
-                authors = increaseStorage(authors, () -> new Author[authorIndex + CAPACITY]);
+                authors = ArrayUtils.increaseStorage(authors, () -> new Author[authors.length + CAPACITY]);
             }
             authors[authorIndex] = author;
             authorIndex++;
@@ -151,11 +151,5 @@ public final class ArrayStorage {
         Arrays.sort(ArrayStorage.authors, comparator);
     }
 
-    //-------Common-----------------------------------------------------------
-    private static <T> T[] increaseStorage(T[] oldArray, Supplier<T[]> increaser) {
-        T[] newArray = increaser.get();
-        ArrayUtils.copyElements(oldArray, newArray);
-        return newArray;
-    }
 
 }

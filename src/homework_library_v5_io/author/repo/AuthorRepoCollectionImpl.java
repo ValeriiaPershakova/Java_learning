@@ -47,10 +47,6 @@ public class AuthorRepoCollectionImpl implements AuthorRepo {
         CollectionStorage.getAllAuthors().sort(comparator);
     }
 
-    @Override
-    public void sort(List<Author> itemsToSort, Comparator<Author> comparator) {
-        itemsToSort.sort(comparator);
-    }
 
     @Override
     public Author[] find(String lastName) {

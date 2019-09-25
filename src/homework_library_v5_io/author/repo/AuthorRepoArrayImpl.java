@@ -52,10 +52,6 @@ public class AuthorRepoArrayImpl implements AuthorRepo {
         ArrayStorage.sortAuthors(comparator);
     }
 
-    @Override
-    public void sort(List<Author> itemsToSort, Comparator<Author> comparator) {
-        itemsToSort.sort(comparator);
-    }
 
     @Override
     public Author[] find(String lastName) {

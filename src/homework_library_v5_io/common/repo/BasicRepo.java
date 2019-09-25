@@ -20,6 +20,5 @@ public interface BasicRepo<T,ID>{
     void sort();
 
     void sort(Comparator comparator);
-    void sort(List<T> itemsToSort, Comparator<T> comparator );
     List<T> find(List<T> items, Predicate<T> predicate);
 }

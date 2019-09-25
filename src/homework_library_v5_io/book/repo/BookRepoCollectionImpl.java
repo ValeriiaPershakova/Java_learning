@@ -75,10 +75,6 @@ public class BookRepoCollectionImpl implements BookRepo {
         CollectionStorage.getAllBooks().sort(comparator);
     }
 
-    @Override
-    public void sort(List<Book> itemsToSort, Comparator<Book> comparator) {
-        itemsToSort.sort(comparator);
-    }
 
     @Override
     public Book[] find(String name) {
