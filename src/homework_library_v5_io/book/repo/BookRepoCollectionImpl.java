@@ -8,6 +8,7 @@ import homework_library_v5_io.storage.CollectionStorage;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class BookRepoCollectionImpl implements BookRepo {
@@ -89,14 +90,14 @@ public class BookRepoCollectionImpl implements BookRepo {
     }
 
     @Override
-    public Book getById(Long bookId) {
-        Book book = null;
+    public Optional<Book> getById(Long bookId) {
+        Optional<Book> bookOptional = Optional.ofNullable(null);
         for (Book b : CollectionStorage.getAllBooks()) {
             if (b.getId().equals(bookId)) {
-                book = b;
+                bookOptional = Optional.of(b);
             }
         }
-        return book;
+        return bookOptional;
     }
 
     @Override

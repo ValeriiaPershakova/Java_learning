@@ -5,6 +5,7 @@ import homework_library_v5_io.author.service.AuthorService;
 import homework_library_v5_io.book.domain.Book;
 import homework_library_v5_io.book.service.NameComparator;
 import homework_library_v5_io.book.service.BookService;
+import homework_library_v5_io.common.ItemNotFoundException;
 import homework_library_v5_io.exporter.LibraryDataExport;
 import homework_library_v5_io.initializer.serviceinitializer.ServiceInitializer;
 import homework_library_v5_io.initializer.serviceinitializer.ServicesHolder;
@@ -66,8 +67,12 @@ public class LibraryDemo {
         authorService.print();
 
         System.out.println("DELETING");
-        authorService.delete(authorService.findByFullName("Dyachenko", "Marina"));
-        bookService.delete(bookService.findByName("Zolotaya rybka").get(0));
+        try {
+            authorService.delete(authorService.findByFullName("Dyachenko", "Marina"));
+            bookService.delete(bookService.findByName("Zolotaya rybka").get(0));
+        } catch (ItemNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
         authorService.print();
         bookService.printBookAndItsAuthor();

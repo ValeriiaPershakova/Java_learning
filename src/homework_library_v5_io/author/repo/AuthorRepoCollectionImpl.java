@@ -8,6 +8,7 @@ import homework_library_v5_io.storage.CollectionStorage;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class AuthorRepoCollectionImpl implements AuthorRepo {
@@ -62,14 +63,14 @@ public class AuthorRepoCollectionImpl implements AuthorRepo {
     }
 
     @Override
-    public Author find(String lastName, String name) {
-        Author author = null;
+    public Optional<Author> find(String lastName, String name) {
+        Optional<Author> authorOptional = Optional.ofNullable(null);
         for (Author a : CollectionStorage.getAllAuthors()) {
             if (a.getLastName().equals(lastName) && a.getName().equals(name)) {
-                author = a;
+                authorOptional = Optional.of(a);
             }
         }
-        return author;
+        return authorOptional;
     }
 
     @Override
@@ -89,14 +90,14 @@ public class AuthorRepoCollectionImpl implements AuthorRepo {
     }
 
     @Override
-    public Author getById(Long authorId) {
-        Author author = null;
+    public Optional<Author> getById(Long authorId) {
+        Optional<Author> authorOptional = Optional.ofNullable(null);
         for (Author a : CollectionStorage.getAllAuthors()) {
             if (a.getId().equals(authorId)) {
-                author = a;
+                authorOptional = Optional.of(a);
             }
         }
-        return author;
+        return authorOptional;
 
     }
 

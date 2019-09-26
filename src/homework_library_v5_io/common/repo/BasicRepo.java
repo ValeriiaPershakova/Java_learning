@@ -2,6 +2,7 @@ package homework_library_v5_io.common.repo;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public interface BasicRepo<T,ID>{
@@ -15,7 +16,7 @@ public interface BasicRepo<T,ID>{
 
     ID add(T obj);
 
-    T getById(ID Id);
+    Optional<T> getById(ID Id);
 
     void sort();
 

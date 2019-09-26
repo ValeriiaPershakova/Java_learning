@@ -4,10 +4,12 @@ import homework_library_v5_io.author.domain.Author;
 import homework_library_v5_io.author.repo.AuthorRepo;
 import homework_library_v5_io.book.domain.Book;
 import homework_library_v5_io.book.repo.BookRepo;
+import homework_library_v5_io.common.ItemNotFoundException;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class BookServiceImpl implements BookService {
     private final AuthorRepo authorRepo;
@@ -40,20 +42,22 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void delete(Book book) {
-        Author[] authorsOfTheBook = authorRepo.findAuthorsByBook(book.getId());
+        if (book!=null) {
+            Author[] authorsOfTheBook = authorRepo.findAuthorsByBook(book.getId());
 
-        if (authorsOfTheBook != null) {
-            for (Author author : authorsOfTheBook) {
-                if (author != null) {
-                    author.deleteBook(book);
+            if (authorsOfTheBook != null) {
+                for (Author author : authorsOfTheBook) {
+                    if (author != null) {
+                        author.deleteBook(book);
 
-                    if (author.withoutBooks()) {
-                        authorRepo.delete(author);
+                        if (author.withoutBooks()) {
+                            authorRepo.delete(author);
+                        }
                     }
                 }
             }
+            bookRepo.delete(book);
         }
-        bookRepo.delete(book);
     }
 
     @Override
@@ -86,28 +90,30 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void sortByName(List<Book> books) {
-        bookRepo.getAll().sort((b1,b2)->String.valueOf(b1.getName()).compareTo(b2.getName()));
+        bookRepo.getAll().sort((b1, b2) -> String.valueOf(b1.getName()).compareTo(b2.getName()));
     }
 
     @Override
     public void sortByPublishYear(List<Book> books) {
-        bookRepo.getAll().sort((b1,b2)->Integer.compare(b1.getPublishYear(),b2.getPublishYear()));
+        bookRepo.getAll().sort((b1, b2) -> Integer.compare(b1.getPublishYear(), b2.getPublishYear()));
     }
 
 
     @Override
-    public Book getById(Long bookId) {
-        return bookRepo.getById(bookId);
+    public Book getById(Long bookId) throws ItemNotFoundException {
+        Optional<Book> bookOptional = bookRepo.getById(bookId);
+        Book book = bookOptional.orElseThrow(() -> new ItemNotFoundException("Book with ID =" + bookId + " does not exist"));
+        return book;
     }
 
     @Override
-    public List<Book> findByName(String name){
-        return bookRepo.find(bookRepo.getAll(),(book -> book.getName().equals(name)));
+    public List<Book> findByName(String name) {
+        return bookRepo.find(bookRepo.getAll(), (book -> book.getName().equals(name)));
     }
 
     @Override
     public List<Book> findByPublishYear(int year) {
-        return bookRepo.find(bookRepo.getAll(),(book -> Integer.compare(book.getPublishYear(),year)==0));
+        return bookRepo.find(bookRepo.getAll(), (book -> Integer.compare(book.getPublishYear(), year) == 0));
     }
 
 }

@@ -4,10 +4,12 @@ import homework_library_v5_io.author.domain.Author;
 import homework_library_v5_io.author.repo.AuthorRepo;
 import homework_library_v5_io.book.domain.Book;
 import homework_library_v5_io.book.repo.BookRepo;
+import homework_library_v5_io.common.ItemNotFoundException;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepo authorRepo;
@@ -37,7 +39,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void delete(Author author) {
-        if (author!=null) {
+        if (author != null) {
             Book[] booksWithAuthor = bookRepo.findBooksByAuthorAsArray(author.getId());
 
             if (booksWithAuthor != null) {
@@ -77,17 +79,23 @@ public class AuthorServiceImpl implements AuthorService {
     public void sort(Comparator comparator) {
         authorRepo.sort(comparator);
     }
+
     @Override
     public List<Author> findByLastName(String lastName) {
-        return authorRepo.find(authorRepo.getAll(),(author)->author.getLastName().equals(lastName));
-    }
-    @Override
-    public Author findByFullName(String lastName, String name) {
-        return authorRepo.find(authorRepo.getAll(),(author -> (author.getLastName().equals(lastName))&&(author.getName().equals(name)))).get(0);
+        return authorRepo.find(authorRepo.getAll(), (author) -> author.getLastName().equals(lastName));
     }
 
     @Override
-    public Author getById(Long authorId) {
-        return authorRepo.getById(authorId);
+    public Author findByFullName(String lastName, String name) throws ItemNotFoundException{
+        Optional<Author> authorOptional = Optional.ofNullable(authorRepo.find(authorRepo.getAll(), (author -> (author.getLastName().equals(lastName)) && (author.getName().equals(name)))).get(0));
+        Author author = authorOptional.orElseThrow(() -> new ItemNotFoundException("Author '" + lastName + " " + name + " does not exist"));
+        return author;
+    }
+
+    @Override
+    public Author getById(Long authorId) throws ItemNotFoundException {
+        Optional<Author> authorOptional = authorRepo.getById(authorId);
+        Author author = authorOptional.orElseThrow(() -> new ItemNotFoundException("Author with ID = " + authorId + " does not exist"));
+        return author;
     }
 }
