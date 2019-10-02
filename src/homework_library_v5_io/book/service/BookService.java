@@ -14,8 +14,8 @@ public interface BookService extends BasicService<Book, Long> {
     List<Book> findByName(String name);
     List<Book> findByPublishYear(int year);
 
-    void sortByName(List<Book> books);
-    void sortByPublishYear(List<Book> books);
+    List<Book> sortByName(List<Book> books);
+    List<Book> sortByPublishYear(List<Book> books);
 
 
 }

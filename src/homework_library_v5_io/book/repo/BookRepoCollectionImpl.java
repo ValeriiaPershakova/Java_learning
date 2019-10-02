@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class BookRepoCollectionImpl implements BookRepo {
     @Override
@@ -79,35 +80,25 @@ public class BookRepoCollectionImpl implements BookRepo {
 
     @Override
     public Book[] find(String name) {
-        List<Book> searchingBook = new ArrayList<>();
-        for (Book book : CollectionStorage.getAllBooks()) {
-            if (book.getName().equals(name)) {
-                searchingBook.add(book);
-                break;
-            }
-        }
+        List<Book> searchingBook = CollectionStorage.getAllBooks().stream()
+                .filter(book -> name.equals(book.getName()))
+                .collect(Collectors.toList());
         return searchingBook.toArray(new Book[0]);
     }
 
     @Override
     public Optional<Book> getById(Long bookId) {
-        Optional<Book> bookOptional = Optional.ofNullable(null);
-        for (Book b : CollectionStorage.getAllBooks()) {
-            if (b.getId().equals(bookId)) {
-                bookOptional = Optional.of(b);
-            }
-        }
+        Optional<Book> bookOptional = CollectionStorage.getAllBooks().stream()
+                .filter(book -> bookId.equals(book.getId()))
+                .findFirst();
         return bookOptional;
     }
 
     @Override
     public List<Book> find(List<Book> items, Predicate<Book> predicate) {
-        List<Book> foundBooks = new ArrayList<>();
-        for (Book book : items) {
-            if (predicate.test(book)) {
-                foundBooks.add(book);
-            }
-        }
+        List<Book> foundBooks = items.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
         return foundBooks;
     }
 }

@@ -82,12 +82,13 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> findByLastName(String lastName) {
-        return authorRepo.find(authorRepo.getAll(), (author) -> author.getLastName().equals(lastName));
+        return authorRepo.find(authorRepo.getAll(), (author) -> author!=null && author.getLastName().equals(lastName));
     }
 
     @Override
     public Author findByFullName(String lastName, String name) throws ItemNotFoundException {
-        Optional<List<Author>> authorOptional = Optional.ofNullable(authorRepo.find(authorRepo.getAll(), (author -> (author.getLastName().equals(lastName)) && (author.getName().equals(name)))));
+        Optional<List<Author>> authorOptional = Optional.ofNullable(authorRepo.find(authorRepo.getAll(),
+                (author -> author != null && (author.getLastName().equals(lastName)) && (author.getName().equals(name)))));
         if (!authorOptional.get().isEmpty()) {
             Author author = authorOptional.get().get(0);
             return author;

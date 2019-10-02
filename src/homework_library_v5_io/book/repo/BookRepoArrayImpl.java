@@ -6,11 +6,9 @@ import homework_library_v5_io.common.utils.CollectionUtils;
 import homework_library_v5_io.storage.ArrayStorage;
 import homework_library_v5_io.storage.CollectionStorage;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class BookRepoArrayImpl implements BookRepo {
 
@@ -62,7 +60,7 @@ public class BookRepoArrayImpl implements BookRepo {
     public List<Book> findBooksByAuthorAsList(long authorId) {
         List<Book> found = new ArrayList<>();
         for (Book book : ArrayStorage.getAllBooks()) {
-            if (book!=null) {
+            if (book != null) {
                 for (Author a : book.getAuthors()) {
                     if (a != null && Long.valueOf(authorId).equals(a.getId())) {
                         found.add(book);
@@ -87,37 +85,25 @@ public class BookRepoArrayImpl implements BookRepo {
 
     @Override
     public Book[] find(String name) {
-        List<Book> book = new ArrayList<>();
-        for (Book a : ArrayStorage.getAllBooks()) {
-            if (a != null) {
-                if (name.equals(a.getName())) {
-                    book.add(a);
-                    break;
-                }
-            }
-        }
+        List<Book> book = Arrays.stream(ArrayStorage.getAllBooks())
+                .filter(book1 -> book1 != null && name.equals(book1.getName()))
+                .collect(Collectors.toList());
         return book.toArray(new Book[0]);
     }
 
     @Override
     public Optional<Book> getById(Long bookId) {
-        Optional<Book> bookOptional = Optional.ofNullable(null);
-        for (Book b : ArrayStorage.getAllBooks()) {
-            if (bookId.equals(b.getId())) {
-                bookOptional = Optional.of(b);
-            }
-        }
+        Optional<Book> bookOptional = Arrays.stream(ArrayStorage.getAllBooks())
+                .filter(book -> book != null && bookId.equals(book.getId()))
+                .findFirst();
         return bookOptional;
     }
 
     @Override
     public List<Book> find(List<Book> items, Predicate<Book> predicate) {
-        List<Book> foundBooks = new ArrayList<>();
-        for (Book book : items) {
-            if (predicate.test(book)) {
-                foundBooks.add(book);
-            }
-        }
+        List<Book> foundBooks = items.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
         return foundBooks;
     }
 }

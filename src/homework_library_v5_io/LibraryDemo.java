@@ -23,7 +23,7 @@ import static homework_library_v5_io.initializer.datainitializer.DataInitializer
 public class LibraryDemo {
     public static void main(String[] args) {
 
-        StorageType storageType = StorageType.COLLECTION;
+        StorageType storageType = StorageType.ARRAY;
         DataInitializerType dataInitializerType = FROM_XML_WITH_DOM;
 
         ServicesHolder servicesHolder = new ServiceInitializer().initServices(storageType);
@@ -58,18 +58,18 @@ public class LibraryDemo {
         System.out.println("SORTING");
         authorService.sort(new LastNameComparator());
         bookService.sort(new NameComparator());
-        //sorting by book name
-        bookService.sortByName(bookService.getAll());
-        bookService.print();
-        //sorting by publish year
-        bookService.sortByPublishYear(bookService.getAll());
-        bookService.print();
+        System.out.println("sorting by book name");
+        System.out.println(bookService.sortByName(bookService.getAll()));
+        System.out.println("sorting by publish year");
+        System.out.println(bookService.sortByPublishYear(bookService.getAll()));
         authorService.print();
 
         System.out.println("DELETING");
         try {
             authorService.delete(authorService.findByFullName("Dyachenko", "Marina"));
             bookService.delete(bookService.findByName("Zolotaya rybka").get(0));
+            //authorService.getById(7L);
+            bookService.getById(7L);
         } catch (ItemNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -81,6 +81,7 @@ public class LibraryDemo {
         System.out.println("Searched books");
         System.out.println(bookService.findByName("Ritual").get(0).getName());
         System.out.println(bookService.findByPublishYear(18).get(0).getName());
+
 
 
         String exportPath = "out/production/Java_learning/homework_library_v5_io/export.txt";

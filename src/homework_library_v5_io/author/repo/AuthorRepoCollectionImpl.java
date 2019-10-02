@@ -5,11 +5,9 @@ import homework_library_v5_io.author.service.LastNameComparator;
 import homework_library_v5_io.book.domain.Book;
 import homework_library_v5_io.storage.CollectionStorage;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class AuthorRepoCollectionImpl implements AuthorRepo {
     @Override
@@ -51,25 +49,17 @@ public class AuthorRepoCollectionImpl implements AuthorRepo {
 
     @Override
     public Author[] find(String lastName) {
-        List<Author> searchingAuthor = new ArrayList<>();
-
-        for (Author author : CollectionStorage.getAllAuthors()) {
-            if (author.getLastName().equals(lastName)) {
-                searchingAuthor.add(author);
-            }
-        }
-
+        List<Author> searchingAuthor = CollectionStorage.getAllAuthors().stream()
+                .filter(author -> lastName.equals(author.getLastName()))
+                .collect(Collectors.toList());
         return searchingAuthor.toArray(new Author[0]);
     }
 
     @Override
     public Optional<Author> find(String lastName, String name) {
-        Optional<Author> authorOptional = Optional.ofNullable(null);
-        for (Author a : CollectionStorage.getAllAuthors()) {
-            if (a.getLastName().equals(lastName) && a.getName().equals(name)) {
-                authorOptional = Optional.of(a);
-            }
-        }
+        Optional<Author> authorOptional = CollectionStorage.getAllAuthors().stream()
+                .filter(author -> lastName.equals(author.getLastName()) && name.equals(author.getName()))
+                .findFirst();
         return authorOptional;
     }
 
@@ -91,24 +81,18 @@ public class AuthorRepoCollectionImpl implements AuthorRepo {
 
     @Override
     public Optional<Author> getById(Long authorId) {
-        Optional<Author> authorOptional = Optional.ofNullable(null);
-        for (Author a : CollectionStorage.getAllAuthors()) {
-            if (a.getId().equals(authorId)) {
-                authorOptional = Optional.of(a);
-            }
-        }
+        Optional<Author> authorOptional = CollectionStorage.getAllAuthors().stream()
+                .filter(author -> authorId.equals(author.getId()))
+                .findFirst();
         return authorOptional;
 
     }
 
     @Override
     public List<Author> find(List<Author> items, Predicate<Author> predicate) {
-        List<Author> foundAuthors = new ArrayList<>();
-        for (Author author : items) {
-            if (predicate.test(author)) {
-                foundAuthors.add(author);
-            }
-        }
+        List<Author> foundAuthors = items.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
         return foundAuthors;
     }
 }

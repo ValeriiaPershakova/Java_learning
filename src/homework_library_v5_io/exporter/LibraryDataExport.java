@@ -23,10 +23,14 @@ public class LibraryDataExport {
             BookService bookService = servicesHolder.getBookService();
             AuthorService authorService = servicesHolder.getAuthorService();
             for (Book book : bookService.getAll()) {
-                writer.print(book.forExport());
+                if (book != null) {
+                    writer.print(book.forExport());
+                }
             }
             for (Author author : authorService.getAll()) {
-                writer.print(author.forExport());
+                if (author != null) {
+                    writer.print(author.forExport());
+                }
             }
 
         }
